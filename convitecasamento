@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Convite de Casamento - Geovana & Felipe</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:linear-gradient(135deg,#fdfbfb,#ebedee);
+font-family:'Poppins',sans-serif;
+overflow:hidden;
+}
+
+/* CONTAINER */
+.container{
+position:relative;
+width:100%;
+max-width:390px;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+perspective:1500px;
+}
+
+/* ENVELOPE */
+.envelope{
+position:relative;
+width:320px;
+height:210px;
+background:white;
+border-radius:10px;
+box-shadow:0 15px 35px rgba(0,0,0,0.25);
+cursor:pointer;
+transform-style:preserve-3d;
+transition:transform 1s ease;
+}
+
+/* FLAP */
+.flap{
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:white;
+clip-path:polygon(0 0,100% 0,50% 60%);
+transform-origin:top;
+transition:transform 1.2s cubic-bezier(.68,-0.55,.27,1.55);
+box-shadow:0 8px 15px rgba(0,0,0,0.1);
+}
+
+/* CARTA */
+.letter{
+position:absolute;
+bottom:0;
+left:50%;
+transform:translateX(-50%) translateY(100%);
+width:92%;
+height:88%;
+background:white;
+border-radius:10px;
+padding:25px 20px;
+text-align:center;
+box-shadow:0 15px 30px rgba(0,0,0,0.2);
+transition:transform 1.2s ease 0.6s;
+overflow-y:auto;
+}
+
+/* TEXTO */
+.names{
+font-family:'Playfair Display',serif;
+color:#b76e79;
+font-size:24px;
+margin-bottom:10px;
+}
+
+h2{
+font-family:'Playfair Display',serif;
+color:#444;
+font-size:18px;
+margin-bottom:15px;
+}
+
+p{
+color:#555;
+font-size:14px;
+margin-bottom:12px;
+line-height:1.6;
+}
+
+.highlight{
+color:#b76e79;
+font-weight:500;
+}
+
+.countdown{
+margin-top:18px;
+font-size:14px;
+color:#000;
+font-weight:500;
+}
+
+/* OPEN EFFECT */
+.open .flap{
+transform:rotateX(-180deg);
+}
+
+.open .letter{
+transform:translateX(-50%) translateY(-8%);
+}
+
+/* RESPONSIVO */
+@media(max-height:700px){
+.letter{
+height:82%;
+}
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+<div class="envelope" id="envelope">
+<div class="flap"></div>
+
+<div class="letter">
+<div class="names">Geovana Lima<br>&<br>Felipe</div>
+
+<h2>Você está convidado!</h2>
+
+<p>
+Com o coração cheio de amor e alegria,
+convidamos você para celebrar conosco
+o início da nossa nova jornada.
+</p>
+
+<p class="highlight">01 de Janeiro de 2026</p>
+
+<p>Igreja Nossa Senhora da Glória</p>
+
+<div class="countdown" id="countdown"></div>
+
+</div>
+</div>
+</div>
+
+<script>
+const envelope = document.getElementById("envelope");
+envelope.addEventListener("click",()=>{
+envelope.classList.toggle("open");
+});
+
+/* COUNTDOWN */
+function updateCountdown(){
+const weddingDate = new Date("Jan 1, 2026 00:00:00").getTime();
+const now = new Date().getTime();
+const distance = weddingDate - now;
+
+if(distance > 0){
+const days = Math.floor(distance / (1000*60*60*24));
+const hours = Math.floor((distance % (1000*60*60*24))/(1000*60*60));
+const minutes = Math.floor((distance % (1000*60*60))/(1000*60));
+const seconds = Math.floor((distance % (1000*60))/1000);
+
+document.getElementById("countdown").innerHTML =
+"Faltam " + days + " dias, " + hours + "h " + minutes + "m " + seconds + "s para o grande dia 💍";
+}else{
+document.getElementById("countdown").innerHTML = "Hoje é o grande dia! 💖";
+}
+}
+
+setInterval(updateCountdown,1000);
+updateCountdown();
+</script>
+
+</body>
+</html>
