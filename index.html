@@ -1,158 +1,208 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Para Geovana</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg-color: #1a1a1a; 
-            --envelope-color: #f3f3f3;
-            --envelope-flap: #e0e0e0;
-            --text-color: #333;
-            --accent: #ff3385;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para Geovana ❤️</title>
 
-        body {
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: var(--bg-color);
-            font-family: 'Inter', sans-serif;
-            overflow: hidden;
-        }
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
 
-        .wrapper {
-            position: relative;
-            cursor: pointer;
-            transition: transform 0.3s;
-        }
+<style>
+:root {
+    --bg-color: #1a1a1a;
+    --envelope-color: #f3f3f3;
+    --envelope-flap: #e0e0e0;
+    --text-color: #333;
+    --accent: #ff3385;
+}
 
-        .wrapper:hover {
-            transform: scale(1.05);
-        }
+body {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: var(--bg-color);
+    font-family: 'Inter', sans-serif;
+    overflow: hidden;
+}
 
-        .envelope {
-            position: relative;
-            width: 300px;
-            height: 200px;
-            background-color: var(--envelope-color);
-            border-bottom-left-radius: 10px;
-            border-bottom-right-radius: 10px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-        }
+.wrapper {
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.3s;
+}
 
-        .envelope::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            z-index: 2;
-            border-top: 110px solid var(--envelope-flap);
-            border-left: 150px solid transparent;
-            border-right: 150px solid transparent;
-            transform-origin: top;
-            transition: transform 0.5s 0.3s;
-        }
+.wrapper:hover {
+    transform: scale(1.05);
+}
 
-        .envelope::after {
-            content: "";
-            position: absolute;
-            z-index: 2;
-            width: 0;
-            height: 0;
-            border-top: 100px solid transparent;
-            border-right: 150px solid var(--envelope-color);
-            border-bottom: 100px solid var(--envelope-color);
-            border-left: 150px solid var(--envelope-color);
-            border-bottom-left-radius: 10px;
-            border-bottom-right-radius: 10px;
-        }
+.envelope {
+    position: relative;
+    width: 300px;
+    height: 200px;
+    background-color: var(--envelope-color);
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+}
 
-        /* AJUSTE: Carta agora tem overflow hidden para não mostrar o texto fora */
-        .letter {
-            position: absolute;
-            bottom: 0;
-            left: 10px;
-            width: 280px;
-            height: 180px;
-            background: white;
-            padding: 20px;
-            text-align: center;
-            transition: transform 0.6s, height 0.6s;
-            z-index: 1;
-            box-sizing: border-box;
-            border-radius: 5px;
-            overflow: hidden; /* Garante que o texto não saia da borda branca */
-        }
+.envelope::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    z-index: 2;
+    border-top: 110px solid var(--envelope-flap);
+    border-left: 150px solid transparent;
+    border-right: 150px solid transparent;
+    transform-origin: top;
+    transition: transform 0.5s 0.3s;
+}
 
-        .letter h1 {
-            font-family: 'Dancing Script', cursive;
-            color: var(--accent);
-            font-size: 2rem;
-            margin: 0 0 10px 0;
-        }
+.envelope::after {
+    content: "";
+    position: absolute;
+    z-index: 2;
+    width: 0;
+    height: 0;
+    border-top: 100px solid transparent;
+    border-right: 150px solid var(--envelope-color);
+    border-bottom: 100px solid var(--envelope-color);
+    border-left: 150px solid var(--envelope-color);
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
 
-        .letter p {
-            font-size: 0.85rem;
-            line-height: 1.5;
-            color: var(--text-color);
-            margin: 10px 0;
-        }
+.letter {
+    position: absolute;
+    bottom: 0;
+    left: 10px;
+    width: 280px;
+    height: 180px;
+    background: white;
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.6s, height 0.6s;
+    z-index: 1;
+    box-sizing: border-box;
+    border-radius: 5px;
+    overflow: hidden;
+}
 
-        .wrapper.open .envelope::before {
-            transform: rotateX(180deg);
-            z-index: 0;
-        }
+.letter h1 {
+    font-family: 'Dancing Script', cursive;
+    color: var(--accent);
+    font-size: 2rem;
+    margin: 0 0 10px 0;
+}
 
-        .wrapper.open .letter {
-            transform: translateY(-130px);
-            height: auto;
-            min-height: 260px; /* Aumentado para caber todo o texto */
-            z-index: 3;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-            overflow: visible; /* Libera o texto quando aberta */
-        }
+.letter p {
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: var(--text-color);
+    margin: 10px 0;
+}
 
-        .timer-container {
-            margin-top: 15px;
-            padding-top: 10px;
-            border-top: 1px dashed #ddd;
-            opacity: 0;
-            transition: opacity 0.5s 0.6s;
-        }
+/* FRASE ESCONDIDA */
+.love-text {
+    opacity: 0;
+    transition: opacity 0.5s ease 0.4s;
+    font-weight: 600;
+    color: var(--accent);
+}
 
-        .wrapper.open .timer-container {
-            opacity: 1;
-        }
+/* MOSTRA AO ABRIR */
+.wrapper.open .love-text {
+    opacity: 1;
+}
 
-        #timer {
-            font-weight: 600;
-            color: var(--accent);
-            font-size: 0.8rem;
-        }
+/* ANIMAÇÃO ABRIR */
+.wrapper.open .envelope::before {
+    transform: rotateX(180deg);
+    z-index: 0;
+}
 
-        .click-hint {
-            position: absolute;
-            bottom: -40px;
-            width: 100%;
-            text-align: center;
-            color: white;
-            font-size: 0.8rem;
-            letter-spacing: 1px;
-            opacity: 0.7;
-        }
-    </style>
+.wrapper.open .letter {
+    transform: translateY(-130px);
+    height: auto;
+    min-height: 260px;
+    z-index: 3;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    overflow: visible;
+}
+
+/* CORAÇÕES */
+.heart {
+    position: absolute;
+    color: var(--accent);
+    font-size: 20px;
+    animation: floatUp 2s ease-out forwards;
+    pointer-events: none;
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-160px) scale(1.6);
+        opacity: 0;
+    }
+}
+
+.click-hint {
+    position: absolute;
+    bottom: -40px;
+    width: 100%;
+    text-align: center;
+    color: white;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    opacity: 0.7;
+}
+</style>
 </head>
+
 <body>
 
-    <div class="wrapper" id="envelopeWrapper">
-        <div class="envelope">
-            <div class="letter">
+<div class="wrapper" id="envelopeWrapper">
+    <div class="envelope">
+        <div class="letter">
+            <h1>Geovana ❤️</h1>
+            
+            <p>
+                Desde que você entrou na minha vida,
+                tudo ficou mais bonito.
+                Seu sorriso ilumina meus dias
+                e seu abraço é o meu lugar favorito.
+            </p>
 
+            <p class="love-text">
+                Eu te amo infinitamente.
+            </p>
+        </div>
+    </div>
+    <div class="click-hint">Clique para abrir 💌</div>
+</div>
 
+<script>
+const wrapper = document.getElementById("envelopeWrapper");
 
+wrapper.addEventListener("click", () => {
+    wrapper.classList.toggle("open");
 
+    if(wrapper.classList.contains("open")) {
+        createHearts();
+    }
+});
 
+function createHearts() {
+    for(let i = 0; i < 18; i++) {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerHTML = "❤️";
+
+        heart.style.left = Math.random() * 280 + "px";
+        heart.style.bottom = "100px";
+        heart.style.fontSize = (Math.random
