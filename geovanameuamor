@@ -1,114 +1,154 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Geovana & Luiz Felipe ❤️</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Geovana</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #1a1a1a; 
+            --envelope-color: #f3f3f3;
+            --envelope-flap: #e0e0e0;
+            --text-color: #333;
+            --accent: #ff3385;
+        }
 
-<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: var(--bg-color);
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+        }
 
-<style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+        .wrapper {
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
 
-body {
-    font-family: 'Poppins', sans-serif;
-    background: linear-gradient(180deg, #ffe6f0, #fff0f5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    text-align: center;
-    padding: 20px;
-}
+        .wrapper:hover {
+            transform: scale(1.05);
+        }
 
-.container {
-    width: 100%;
-    max-width: 420px;
-}
+        .envelope {
+            position: relative;
+            width: 300px;
+            height: 200px;
+            background-color: var(--envelope-color);
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        }
 
-h1 {
-    font-family: 'Pacifico', cursive;
-    font-size: 26px;
-    color: #ff4d88;
-    margin-bottom: 8px;
-}
+        .envelope::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            z-index: 2;
+            border-top: 110px solid var(--envelope-flap);
+            border-left: 150px solid transparent;
+            border-right: 150px solid transparent;
+            transform-origin: top;
+            transition: transform 0.5s 0.3s;
+        }
 
-h2 {
-    font-weight: 300;
-    font-size: 14px;
-    margin-bottom: 20px;
-}
+        .envelope::after {
+            content: "";
+            position: absolute;
+            z-index: 2;
+            width: 0;
+            height: 0;
+            border-top: 100px solid transparent;
+            border-right: 150px solid var(--envelope-color);
+            border-bottom: 100px solid var(--envelope-color);
+            border-left: 150px solid var(--envelope-color);
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
 
-.photo {
-    width: 100%;
-    border-radius: 25px;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-    margin-bottom: 20px;
-}
+        /* AJUSTE: Carta agora tem overflow hidden para não mostrar o texto fora */
+        .letter {
+            position: absolute;
+            bottom: 0;
+            left: 10px;
+            width: 280px;
+            height: 180px;
+            background: white;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.6s, height 0.6s;
+            z-index: 1;
+            box-sizing: border-box;
+            border-radius: 5px;
+            overflow: hidden; /* Garante que o texto não saia da borda branca */
+        }
 
-.counter {
-    background: white;
-    padding: 20px;
-    border-radius: 20px;
-    font-size: 18px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-    margin-bottom: 20px;
-}
+        .letter h1 {
+            font-family: 'Dancing Script', cursive;
+            color: var(--accent);
+            font-size: 2rem;
+            margin: 0 0 10px 0;
+        }
 
-.love-text {
-    font-size: 14px;
-    color: #555;
-    line-height: 1.6;
-}
-</style>
+        .letter p {
+            font-size: 0.85rem;
+            line-height: 1.5;
+            color: var(--text-color);
+            margin: 10px 0;
+        }
+
+        .wrapper.open .envelope::before {
+            transform: rotateX(180deg);
+            z-index: 0;
+        }
+
+        .wrapper.open .letter {
+            transform: translateY(-130px);
+            height: auto;
+            min-height: 260px; /* Aumentado para caber todo o texto */
+            z-index: 3;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            overflow: visible; /* Libera o texto quando aberta */
+        }
+
+        .timer-container {
+            margin-top: 15px;
+            padding-top: 10px;
+            border-top: 1px dashed #ddd;
+            opacity: 0;
+            transition: opacity 0.5s 0.6s;
+        }
+
+        .wrapper.open .timer-container {
+            opacity: 1;
+        }
+
+        #timer {
+            font-weight: 600;
+            color: var(--accent);
+            font-size: 0.8rem;
+        }
+
+        .click-hint {
+            position: absolute;
+            bottom: -40px;
+            width: 100%;
+            text-align: center;
+            color: white;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            opacity: 0.7;
+        }
+    </style>
 </head>
-
 <body>
 
-<div class="container">
+    <div class="wrapper" id="envelopeWrapper">
+        <div class="envelope">
+            <div class="letter">
 
-<h1>Geovana & Luiz Felipe ❤️</h1>
-<h2>Juntos desde 11/06/2022</h2>
-
-<img src="foto.jpg" class="photo">
-
-<div class="counter" id="contador">
-Carregando nosso tempo juntos...
-</div>
-
-<div class="love-text">
-Cada dia ao seu lado é o melhor capítulo da minha vida.  
-Você é meu amor, minha paz e minha felicidade. 💖
-</div>
-
-</div>
-
-<script>
-function atualizarContador() {
-    const dataInicio = new Date("2022-06-11T00:00:00");
-    const agora = new Date();
-
-    const diff = agora - dataInicio;
-
-    const dias = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const horas = Math.floor((diff / (1000 * 60 * 60)) % 24);
-    const minutos = Math.floor((diff / (1000 * 60)) % 60);
-    const segundos = Math.floor((diff / 1000) % 60);
-
-    document.getElementById("contador").innerHTML =
-        dias + " dias<br>" +
-        horas + " horas<br>" +
-        minutos + " minutos<br>" +
-        segundos + " segundos 💖";
-}
-
-setInterval(atualizarContador, 1000);
-atualizarContador();
-</script>
-
-</body>
-</html>
