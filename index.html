@@ -1,92 +1,128 @@
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Geovana ❤️ Felipe</title>
+<title>Geovana ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;500&display=swap" rel="stylesheet">
 
 <style>
-body {
-    margin: 0;
-    font-family: 'Segoe UI', sans-serif;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    color: white;
-    overflow: hidden;
-    background: linear-gradient(-45deg, #ff9ecf, #ffc2e2, #ff85c1, #ffb6d9);
-    background-size: 400% 400%;
-    animation: gradient 12s ease infinite;
+body{
+    margin:0;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-family:'Montserrat',sans-serif;
+    background:linear-gradient(135deg,#ffd6eb,#ffc2e2,#ffb3d9);
+    overflow:hidden;
+    color:#660033;
 }
 
-@keyframes gradient {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+/* Caixa central */
+.container{
+    position:relative;
+    z-index:2;
+    width:90%;
+    max-width:380px;
+    padding:25px;
+    border-radius:20px;
+    background:rgba(255,255,255,0.25);
+    backdrop-filter:blur(10px);
+    box-shadow:0 8px 25px rgba(0,0,0,0.1);
+    text-align:center;
 }
 
-.container {
-    z-index: 2;
-    max-width: 90%;
-    animation: fadeIn 2s ease-in-out;
+/* Nome */
+h1{
+    font-family:'Great Vibes',cursive;
+    font-size:3em;
+    margin-bottom:10px;
+    position:relative;
+    display:inline-block;
+    animation:respirar 3s ease-in-out infinite;
 }
 
-h1 {
-    font-size: 2.3em;
-    margin-bottom: 10px;
+/* brilho passando */
+h1::after{
+    content:"";
+    position:absolute;
+    top:0;
+    left:-100%;
+    width:100%;
+    height:100%;
+    background:linear-gradient(120deg,transparent,rgba(255,255,255,0.6),transparent);
+    animation:brilho 4s infinite;
 }
 
-#frase {
-    font-size: 1.2em;
-    margin-bottom: 15px;
-    min-height: 40px;
+@keyframes brilho{
+    0%{left:-100%;}
+    50%{left:100%;}
+    100%{left:100%;}
 }
 
-#contador {
-    font-size: 1.1em;
-    margin-bottom: 20px;
+@keyframes respirar{
+    0%,100%{transform:scale(1);}
+    50%{transform:scale(1.05);}
 }
 
-button {
-    background: white;
-    color: #ff4fa3;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 20px;
-    cursor: pointer;
-    font-size: 1em;
-    transition: 0.3s;
+#contador{
+    margin:15px 0;
+    font-size:0.95em;
 }
 
-button:hover {
-    transform: scale(1.1);
+button{
+    background:#99004d;
+    color:white;
+    border:none;
+    padding:8px 20px;
+    border-radius:25px;
+    cursor:pointer;
+    transition:0.3s;
 }
 
-#mensagemSecreta {
-    display: none;
-    margin-top: 15px;
-    font-size: 1.1em;
-    animation: fadeIn 2s;
+button:active{
+    transform:scale(0.95);
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+#mensagem{
+    margin-top:15px;
+    opacity:0;
+    transform:translateY(10px);
+    transition:all 1s ease;
+    font-size:0.95em;
 }
 
-.heart {
-    position: absolute;
-    color: rgba(255,255,255,0.7);
-    font-size: 20px;
-    animation: float 6s linear infinite;
+/* corações leves */
+.heart{
+    position:absolute;
+    font-size:14px;
+    color:rgba(153,0,77,0.4);
+    animation:subir linear infinite;
 }
 
-@keyframes float {
-    0% { transform: translateY(100vh); opacity: 0; }
-    10% { opacity: 1; }
-    100% { transform: translateY(-10vh); opacity: 0; }
+@keyframes subir{
+    from{transform:translateY(100vh);opacity:0;}
+    20%{opacity:1;}
+    to{transform:translateY(-10vh);opacity:0;}
+}
+
+/* estrelas piscando */
+.star{
+    position:absolute;
+    width:4px;
+    height:4px;
+    background:white;
+    border-radius:50%;
+    opacity:0.8;
+    animation:pulsar 2s infinite alternate;
+}
+
+@keyframes pulsar{
+    from{opacity:0.2;}
+    to{opacity:1;}
 }
 </style>
 </head>
@@ -94,67 +130,60 @@ button:hover {
 <body>
 
 <div class="container">
-    <h1>Geovana ❤️ Felipe</h1>
-    <div id="frase"></div>
+    <h1>Geovana ❤️</h1>
     <div id="contador"></div>
-    <button onclick="mostrarMensagem()">Clique aqui 💌</button>
-    <div id="mensagemSecreta">
-        Geovana, você é a melhor parte dos meus dias.  
-        Obrigado por existir. 💖  
-        Eu te amo infinitamente.
+    <button onclick="abrir()">Abrir 💌</button>
+    <div id="mensagem">
+        Geovana… você é meu lugar favorito no mundo.  
+        Cada segundo ao seu lado é o melhor presente da minha vida. 💖
     </div>
 </div>
 
-<audio id="musica" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
-
 <script>
-const texto = "Desde que você entrou na minha vida, tudo ficou mais bonito ✨";
-let i = 0;
+// CONTADOR
+const dataInicio = new Date("2024-01-01");
 
-function escreverTexto() {
-    if (i < texto.length) {
-        document.getElementById("frase").innerHTML += texto.charAt(i);
-        i++;
-        setTimeout(escreverTexto, 50);
-    }
-}
-escreverTexto();
-
-// DATA DE INÍCIO
-const dataInicio = new Date("2022-06-11");
-
-function atualizarContador() {
+function atualizar(){
     const agora = new Date();
-    const diferenca = agora - dataInicio;
+    const diff = agora - dataInicio;
 
-    const dias = Math.floor(diferenca / (1000 * 60 * 60 * 24));
-    const horas = Math.floor((diferenca / (1000 * 60 * 60)) % 24);
-    const minutos = Math.floor((diferenca / (1000 * 60)) % 60);
-    const segundos = Math.floor((diferenca / 1000) % 60);
+    const dias = Math.floor(diff/(1000*60*60*24));
+    const horas = Math.floor((diff/(1000*60*60))%24);
+    const minutos = Math.floor((diff/(1000*60))%60);
+    const segundos = Math.floor((diff/1000)%60);
 
     document.getElementById("contador").innerHTML =
-        `Estamos juntos há <br><strong>${dias} dias, ${horas} horas, ${minutos} minutos e ${segundos} segundos 💕</strong>`;
+    `${dias} dias • ${horas}h • ${minutos}m • ${segundos}s 💕`;
+}
+setInterval(atualizar,1000);
+atualizar();
+
+// Abrir mensagem
+function abrir(){
+    const m = document.getElementById("mensagem");
+    m.style.opacity="1";
+    m.style.transform="translateY(0)";
 }
 
-setInterval(atualizarContador, 1000);
-atualizarContador();
-
-function criarCoracao() {
-    const heart = document.createElement("div");
-    heart.classList.add("heart");
-    heart.innerHTML = "❤️";
-    heart.style.left = Math.random() * 100 + "vw";
-    heart.style.fontSize = (Math.random() * 20 + 15) + "px";
-    heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
-    document.body.appendChild(heart);
-    setTimeout(() => { heart.remove(); }, 6000);
+// Corações leves
+function criarHeart(){
+    const h=document.createElement("div");
+    h.classList.add("heart");
+    h.innerHTML="❤";
+    h.style.left=Math.random()*100+"vw";
+    h.style.animationDuration=(Math.random()*5+5)+"s";
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),10000);
 }
+setInterval(criarHeart,800);
 
-setInterval(criarCoracao, 300);
-
-function mostrarMensagem() {
-    document.getElementById("mensagemSecreta").style.display = "block";
-    document.getElementById("musica").play();
+// Estrelas fixas
+for(let i=0;i<25;i++){
+    const s=document.createElement("div");
+    s.classList.add("star");
+    s.style.top=Math.random()*100+"vh";
+    s.style.left=Math.random()*100+"vw";
+    document.body.appendChild(s);
 }
 </script>
 
