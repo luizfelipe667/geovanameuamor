@@ -1,145 +1,181 @@
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Geovana | Eternal</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>Para Geovana</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #ff3385;
-            --glass: rgba(255, 255, 255, 0.15);
-            --glass-border: rgba(255, 255, 255, 0.3);
+            --bg-color: #1a1a1a; /* Fundo escuro para contraste profissional */
+            --envelope-color: #f3f3f3;
+            --envelope-flap: #e0e0e0;
+            --text-color: #333;
+            --accent: #ff3385;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
         body {
-            height: 100vh;
+            margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
-            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            height: 100vh;
+            background-color: var(--bg-color);
             font-family: 'Inter', sans-serif;
             overflow: hidden;
-            color: #fff;
         }
 
-        /* Fundo Animado (Corações Cinema) */
-        .bg-animate {
+        /* Container do Envelope */
+        .wrapper {
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .wrapper:hover {
+            transform: scale(1.05);
+        }
+
+        .envelope {
+            position: relative;
+            width: 300px;
+            height: 200px;
+            background-color: var(--envelope-color);
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        }
+
+        /* Aba do envelope */
+        .envelope::before {
+            content: "";
             position: absolute;
-            width: 100%;
-            height: 100%;
+            top: 0;
+            z-index: 2;
+            border-top: 110px solid var(--envelope-flap);
+            border-left: 150px solid transparent;
+            border-right: 150px solid transparent;
+            transform-origin: top;
+            transition: transform 0.5s 0.3s;
+        }
+
+        /* Lados do envelope */
+        .envelope::after {
+            content: "";
+            position: absolute;
+            z-index: 2;
+            width: 0;
+            height: 0;
+            border-top: 100px solid transparent;
+            border-right: 150px solid var(--envelope-color);
+            border-bottom: 100px solid var(--envelope-color);
+            border-left: 150px solid var(--envelope-color);
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
+
+        /* A Carta (dentro do envelope) */
+        .letter {
+            position: absolute;
+            bottom: 0;
+            left: 10px;
+            width: 280px;
+            height: 180px;
+            background: white;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.6s;
+            z-index: 1;
+            box-sizing: border-box;
+            border-radius: 5px;
+        }
+
+        .letter h1 {
+            font-family: 'Dancing Script', cursive;
+            color: var(--accent);
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .letter p {
+            font-size: 0.85rem;
+            line-height: 1.5;
+            color: var(--text-color);
+        }
+
+        /* Animação de Abrir */
+        .wrapper.open .envelope::before {
+            transform: rotateX(180deg);
             z-index: 0;
         }
 
-        /* Container Principal com Efeito Glassmorphism */
-        .main-card {
-            position: relative;
-            z-index: 10;
-            width: 90%;
-            max-width: 420px;
-            padding: 40px 30px;
-            background: var(--glass);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid var(--glass-border);
-            border-radius: 30px;
-            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            animation: fadeIn 1.5s ease-out;
+        .wrapper.open .letter {
+            transform: translateY(-130px);
+            height: auto;
+            min-height: 250px;
+            z-index: 3;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .nome-destaque {
-            font-family: 'Dancing Script', cursive;
-            font-size: 4rem;
-            margin-bottom: 20px;
-            background: linear-gradient(to bottom, #ffffff, #ffe4ee);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.1));
-        }
-
-        .carta-content {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            font-weight: 300;
-            margin-bottom: 30px;
-            color: rgba(255, 255, 255, 0.95);
-        }
-
-        .destaque-romantico {
-            display: block;
+        /* Contador (Aparece após abrir) */
+        .timer-container {
             margin-top: 15px;
-            font-weight: 600;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            font-size: 0.85rem;
+            padding-top: 10px;
+            border-top: 1px dashed #ddd;
+            opacity: 0;
+            transition: opacity 0.5s 0.6s;
         }
 
-        /* Player Spotify Minimalista */
-        .spotify-container {
-            border-radius: 20px;
-            overflow: hidden;
-            margin-bottom: 30px;
-            border: 1px solid var(--glass-border);
-        }
-
-        /* Contador Estilo High-Tech */
-        .timer-section {
-            background: rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            border-radius: 20px;
-        }
-
-        .timer-label {
-            font-size: 0.7rem;
-            letter-spacing: 3px;
-            opacity: 0.8;
-            margin-bottom: 10px;
-            display: block;
+        .wrapper.open .timer-container {
+            opacity: 1;
         }
 
         #timer {
-            font-size: 1.4rem;
             font-weight: 600;
-            font-variant-numeric: tabular-nums;
+            color: var(--accent);
+            font-size: 0.8rem;
         }
 
+        .click-hint {
+            position: absolute;
+            bottom: -40px;
+            width: 100%;
+            text-align: center;
+            color: white;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            opacity: 0.7;
+        }
     </style>
 </head>
 <body>
 
-    <div class="bg-animate" id="particles"></div>
-
-    <main class="main-card">
-        <h1 class="nome-destaque">Geovana</h1>
-
-        <div class="carta-content">
-            <p>Desde 2022, você transformou meu mundo.</p>
-            <p>Cada detalhe seu me faz ter certeza que é você.</p>
-            <span class="destaque-romantico">Eu te amo infinitamente! 💖</span>
+    <div class="wrapper" id="envelopeWrapper">
+        <div class="envelope">
+            <div class="letter">
+                <h1>Geovana</h1>
+                <p>Desde 2022, você transformou meu mundo. Cada detalhe seu me faz ter certeza que é você.</p>
+                <p><strong>Eu te amo infinitamente! 💖</strong></p>
+                
+                <div class="timer-container">
+                    <span style="font-size: 0.6rem; display: block; margin-bottom: 5px;">NOSSO TEMPO:</span>
+                    <div id="timer">0000d 00h 00m 00s</div>
+                </div>
+            </div>
         </div>
-
-        <div class="spotify-container">
-            <iframe src="https://open.spotify.com/embed/track/29u99pY9Uv776oX67YI3S2" 
-                width="100%" height="80" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
-            </iframe>
-        </div>
-
-        <div class="timer-section">
-            <span class="timer-label">TIME TOGETHER</span>
-            <div id="timer">0000d 00h 00m 00s</div>
-        </div>
-    </main>
+        <div class="click-hint">CLIQUE PARA ABRIR</div>
+    </div>
 
     <script>
-        // Data de Início (Ajustada para o seu marco em 2022)
+        const wrapper = document.getElementById('envelopeWrapper');
+        
+        // Abre e fecha ao clicar
+        wrapper.addEventListener('click', () => {
+            wrapper.classList.toggle('open');
+        });
+
+        // Lógica do Contador
         const startDate = new Date(2022, 0, 1, 0, 0, 0); 
 
         function updateTimer() {
@@ -157,27 +193,6 @@
 
         setInterval(updateTimer, 1000);
         updateTimer();
-
-        // Efeito Cinema: Partículas Flutuantes
-        function createHeart() {
-            const heart = document.createElement('div');
-            heart.innerHTML = '❤️';
-            heart.style.position = 'absolute';
-            heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.top = '110vh';
-            heart.style.fontSize = Math.random() * 20 + 10 + 'px';
-            heart.style.opacity = Math.random() * 0.5;
-            heart.style.transition = `transform ${Math.random() * 5 + 5}s linear, opacity 5s`;
-            
-            document.getElementById('particles').appendChild(heart);
-
-            setTimeout(() => {
-                heart.style.transform = `translateY(-120vh) rotate(${Math.random() * 360}deg)`;
-            }, 100);
-
-            setTimeout(() => { heart.remove(); }, 8000);
-        }
-        setInterval(createHeart, 400);
     </script>
 </body>
 </html>
