@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -8,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #1a1a1a; /* Fundo escuro para contraste profissional */
+            --bg-color: #1a1a1a; 
             --envelope-color: #f3f3f3;
             --envelope-flap: #e0e0e0;
             --text-color: #333;
@@ -26,7 +25,6 @@
             overflow: hidden;
         }
 
-        /* Container do Envelope */
         .wrapper {
             position: relative;
             cursor: pointer;
@@ -47,7 +45,6 @@
             box-shadow: 0 20px 40px rgba(0,0,0,0.5);
         }
 
-        /* Aba do envelope */
         .envelope::before {
             content: "";
             position: absolute;
@@ -60,7 +57,6 @@
             transition: transform 0.5s 0.3s;
         }
 
-        /* Lados do envelope */
         .envelope::after {
             content: "";
             position: absolute;
@@ -75,7 +71,6 @@
             border-bottom-right-radius: 10px;
         }
 
-        /* A Carta (dentro do envelope) */
         .letter {
             position: absolute;
             bottom: 0;
@@ -104,7 +99,6 @@
             color: var(--text-color);
         }
 
-        /* Animação de Abrir */
         .wrapper.open .envelope::before {
             transform: rotateX(180deg);
             z-index: 0;
@@ -118,7 +112,6 @@
             box-shadow: 0 5px 20px rgba(0,0,0,0.2);
         }
 
-        /* Contador (Aparece após abrir) */
         .timer-container {
             margin-top: 15px;
             padding-top: 10px;
@@ -155,7 +148,7 @@
         <div class="envelope">
             <div class="letter">
                 <h1>Geovana</h1>
-                <p>Desde 2022, você transformou meu mundo. Cada detalhe seu me faz ter certeza que é você.</p>
+                <p>Desde 2022, você transformou meu mundo. Cada detalhe seu me faz ter certeza de que você é o amor da minha vida.</p>
                 <p><strong>Eu te amo infinitamente! 💖</strong></p>
                 
                 <div class="timer-container">
@@ -170,13 +163,12 @@
     <script>
         const wrapper = document.getElementById('envelopeWrapper');
         
-        // Abre e fecha ao clicar
         wrapper.addEventListener('click', () => {
             wrapper.classList.toggle('open');
         });
 
-        // Lógica do Contador
-        const startDate = new Date(2022, 0, 1, 0, 0, 0); 
+        // DATA ATUALIZADA: 11/06/2022 (Mês 5 no JS)
+        const startDate = new Date(2022, 5, 11, 0, 0, 0); 
 
         function updateTimer() {
             const now = new Date();
@@ -196,5 +188,6 @@
     </script>
 </body>
 </html>
+
 
 
