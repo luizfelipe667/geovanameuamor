@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #1a1a1a; /* Fundo escuro para contraste profissional */
+            --bg-color: #1a1a1a; 
             --envelope-color: #f3f3f3;
             --envelope-flap: #e0e0e0;
             --text-color: #333;
@@ -25,7 +25,6 @@
             overflow: hidden;
         }
 
-        /* Container do Envelope */
         .wrapper {
             position: relative;
             cursor: pointer;
@@ -46,7 +45,6 @@
             box-shadow: 0 20px 40px rgba(0,0,0,0.5);
         }
 
-        /* Aba do envelope */
         .envelope::before {
             content: "";
             position: absolute;
@@ -59,7 +57,6 @@
             transition: transform 0.5s 0.3s;
         }
 
-        /* Lados do envelope */
         .envelope::after {
             content: "";
             position: absolute;
@@ -74,7 +71,7 @@
             border-bottom-right-radius: 10px;
         }
 
-        /* A Carta (dentro do envelope) */
+        /* AJUSTE: Carta agora tem overflow hidden para não mostrar o texto fora */
         .letter {
             position: absolute;
             bottom: 0;
@@ -84,26 +81,27 @@
             background: white;
             padding: 20px;
             text-align: center;
-            transition: transform 0.6s;
+            transition: transform 0.6s, height 0.6s;
             z-index: 1;
             box-sizing: border-box;
             border-radius: 5px;
+            overflow: hidden; /* Garante que o texto não saia da borda branca */
         }
 
         .letter h1 {
             font-family: 'Dancing Script', cursive;
             color: var(--accent);
             font-size: 2rem;
-            margin-bottom: 10px;
+            margin: 0 0 10px 0;
         }
 
         .letter p {
             font-size: 0.85rem;
             line-height: 1.5;
             color: var(--text-color);
+            margin: 10px 0;
         }
 
-        /* Animação de Abrir */
         .wrapper.open .envelope::before {
             transform: rotateX(180deg);
             z-index: 0;
@@ -112,12 +110,12 @@
         .wrapper.open .letter {
             transform: translateY(-130px);
             height: auto;
-            min-height: 250px;
+            min-height: 260px; /* Aumentado para caber todo o texto */
             z-index: 3;
             box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            overflow: visible; /* Libera o texto quando aberta */
         }
 
-        /* Contador (Aparece após abrir) */
         .timer-container {
             margin-top: 15px;
             padding-top: 10px;
@@ -153,48 +151,7 @@
     <div class="wrapper" id="envelopeWrapper">
         <div class="envelope">
             <div class="letter">
-                <h1>Geovana</h1>
-                <p>Desde 2022, você transformou meu mundo. Cada detalhe seu me faz ter certeza de você é o amor da minha vida.</p>
-                <p><strong>Eu te amo infinitamente! 💖</strong></p>
-                
-                <div class="timer-container">
-                    <span style="font-size: 0.6rem; display: block; margin-bottom: 5px;">NOSSO TEMPO:</span>
-                    <div id="timer">0000d 00h 00m 00s</div>
-                </div>
-            </div>
-        </div>
-        <div class="click-hint">CLIQUE PARA ABRIR</div>
-    </div>
 
-    <script>
-        const wrapper = document.getElementById('envelopeWrapper');
-        
-        // Abre e fecha ao clicar
-        wrapper.addEventListener('click', () => {
-            wrapper.classList.toggle('open');
-        });
-
-        // Lógica do Contador (Data: 11/06/2022)
-        const startDate = new Date(2022, 5, 11, 0, 0, 0); 
-
-        function updateTimer() {
-            const now = new Date();
-            const diff = now - startDate;
-
-            const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
-            const m = Math.floor((diff / 1000 / 60) % 60);
-            const s = Math.floor((diff / 1000) % 60);
-
-            document.getElementById('timer').innerText = 
-                `${d}d ${h.toString().padStart(2, '0')}h ${m.toString().padStart(2, '0')}m ${s.toString().padStart(2, '0')}s`;
-        }
-
-        setInterval(updateTimer, 1000);
-        updateTimer();
-    </script>
-</body>
-</html>
 
 
 
